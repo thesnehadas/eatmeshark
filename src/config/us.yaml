@@ -1,0 +1,46 @@
+country: US
+dataset_path: data/Shark Tank US.csv
+
+column_mapping:
+  industry: "Industry"
+  ask_amount: "Original Ask Amount"
+  ask_equity: "Original Offered Equity"
+  valuation_requested: "Valuation Requested"
+  monthly_sales: null  # Not available in US dataset
+  business_description: "Business Description"
+  got_deal: "Got Deal"  # Explicit deal indicator for US
+  deal_amount: "Total Deal Amount"
+  deal_equity: "Total Deal Equity"
+  deal_valuation: "Deal Valuation"
+
+sharks:
+  - name: "Mark"
+    present_column: "Mark Cuban Present"
+    investment_amount: "Mark Cuban Investment Amount"
+    investment_equity: "Mark Cuban Investment Equity"
+  - name: "Barbara"
+    present_column: "Barbara Corcoran Present"
+    investment_amount: "Barbara Corcoran Investment Amount"
+    investment_equity: "Barbara Corcoran Investment Equity"
+  - name: "Lori"
+    present_column: "Lori Greiner Present"
+    investment_amount: "Lori Greiner Investment Amount"
+    investment_equity: "Lori Greiner Investment Equity"
+  - name: "Robert"
+    present_column: "Robert Herjavec Present"
+    investment_amount: "Robert Herjavec Investment Amount"
+    investment_equity: "Robert Herjavec Investment Equity"
+  - name: "Daymond"
+    present_column: "Daymond John Present"
+    investment_amount: "Daymond John Investment Amount"
+    investment_equity: "Daymond John Investment Equity"
+  - name: "Kevin"
+    present_column: "Kevin O Leary Present"
+    investment_amount: "Kevin O Leary Investment Amount"
+    investment_equity: "Kevin O Leary Investment Equity"
+
+model_paths:
+  deal: "models/us/deal_model.joblib"
+  valuation: "models/us/valuation_model.joblib"
+  sharks: "models/us/shark_models.joblib"
+  similarity: "models/us/similarity_model.joblib"

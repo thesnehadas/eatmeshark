@@ -1,0 +1,42 @@
+country: Australia
+dataset_path: data/Shark Tank Australia.csv
+
+column_mapping:
+  industry: "Industry"
+  ask_amount: "Original Ask Amount"
+  ask_equity: "Original Offered Equity"
+  valuation_requested: "Valuation Requested"
+  monthly_sales: null  # Not available in Australia dataset
+  business_description: "Business Description"
+  received_offer: "Received Offer"  # Explicit deal indicator for Australia
+  deal_amount: "Total Deal Amount"
+  deal_equity: "Total Deal Equity"
+  deal_valuation: "Deal Valuation"
+
+sharks:
+  - name: "Steve"
+    present_column: "Steve Present"
+    investment_amount: "Steve Investment Amount"
+    investment_equity: "Steve Investment Equity"
+  - name: "Glen"
+    present_column: "Glen Present"
+    investment_amount: "Glen Investment Amount"
+    investment_equity: "Glen Investment Equity"
+  - name: "Andrew"
+    present_column: "Andrew Present"
+    investment_amount: "Andrew Investment Amount"
+    investment_equity: "Andrew Investment Equity"
+  - name: "Naomi"
+    present_column: "Naomi Present"
+    investment_amount: "Naomi Investment Amount"
+    investment_equity: "Naomi Investment Equity"
+  - name: "Janine"
+    present_column: "Janine Present"
+    investment_amount: "Janine Investment Amount"
+    investment_equity: "Janine Investment Equity"
+
+model_paths:
+  deal: "models/australia/deal_model.joblib"
+  valuation: "models/australia/valuation_model.joblib"
+  sharks: "models/australia/shark_models.joblib"
+  similarity: "models/australia/similarity_model.joblib"

@@ -1,0 +1,58 @@
+country: India
+dataset_path: data/Shark Tank India.csv
+
+# Canonical schema mapping
+column_mapping:
+  industry: "Industry"
+  season: "Season Number"
+  ask_amount: "Original Ask Amount"
+  ask_equity: "Original Offered Equity"
+  valuation_requested: "Valuation Requested"
+  monthly_sales: "Monthly Sales"
+  deal_amount: "Total Deal Amount"
+  deal_equity: "Total Deal Equity"
+  deal_valuation: "Deal Valuation"
+  business_description: "Business Description"
+
+# Sharks for India
+sharks:
+  - name: "Namita"
+    present_column: "Namita Present"
+    investment_amount: "Namita Investment Amount"
+    investment_equity: "Namita Investment Equity"
+  - name: "Vineeta"
+    present_column: "Vineeta Present"
+    investment_amount: "Vineeta Investment Amount"
+    investment_equity: "Vineeta Investment Equity"
+  - name: "Anupam"
+    present_column: "Anupam Present"
+    investment_amount: "Anupam Investment Amount"
+    investment_equity: "Anupam Investment Equity"
+  - name: "Aman"
+    present_column: "Aman Present"
+    investment_amount: "Aman Investment Amount"
+    investment_equity: "Aman Investment Equity"
+  - name: "Peyush"
+    present_column: "Peyush Present"
+    investment_amount: "Peyush Investment Amount"
+    investment_equity: "Peyush Investment Equity"
+  - name: "Ritesh"
+    present_column: "Ritesh Present"
+    investment_amount: "Ritesh Investment Amount"
+    investment_equity: "Ritesh Investment Equity"
+  - name: "Amit"
+    present_column: "Amit Present"
+    investment_amount: "Amit Investment Amount"
+    investment_equity: "Amit Investment Equity"
+  - name: "Ashneer"
+    present_column: "Ashneer Present"
+    investment_amount: null  # May not have direct column
+    investment_equity: null
+
+# Model paths
+model_paths:
+  deal: "models/india/deal_model.joblib"
+  valuation: "models/india/valuation_model.joblib"
+  sharks: "models/india/shark_models.joblib"
+  similarity: "models/india/similarity_model.joblib"
+

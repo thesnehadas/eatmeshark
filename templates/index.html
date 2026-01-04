@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shark Tank Intelligence Platform</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">🦈 Shark Tank Intelligence</h1>
+                <p class="tagline">AI-Powered Deal Predictor & Startup Analyzer</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Country Selector -->
+            <section class="country-selector">
+                <label for="country-select">Select Country:</label>
+                <select id="country-select" class="select-input">
+                    <option value="">Loading...</option>
+                </select>
+            </section>
+
+            <!-- Input Form -->
+            <section class="input-section">
+                <h2>Pitch Information</h2>
+                <form id="pitch-form" class="pitch-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="industry">Industry</label>
+                            <select id="industry" name="industry" class="select-input" required>
+                                <option value="">Select Industry...</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ask-amount">Ask Amount</label>
+                            <input type="number" id="ask-amount" name="ask_amount" class="text-input" 
+                                   placeholder="0.00" step="0.01" min="0" required>
+                            <span class="currency-label" id="currency-unit-1">Lakhs</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ask-equity">Ask Equity (%)</label>
+                            <input type="number" id="ask-equity" name="ask_equity" class="text-input" 
+                                   placeholder="0.0" step="0.1" min="0" max="100" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="valuation-requested">Valuation Requested</label>
+                            <input type="number" id="valuation-requested" name="valuation_requested" class="text-input" 
+                                   placeholder="0.00" step="0.01" min="0" required>
+                            <span class="currency-label" id="currency-unit-2">Lakhs</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="monthly-sales">Monthly Sales</label>
+                            <input type="number" id="monthly-sales" name="monthly_sales" class="text-input" 
+                                   placeholder="0.00" step="0.01" min="0" required>
+                            <span class="currency-label" id="currency-unit-3">Lakhs</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="business-description">Business Description</label>
+                        <textarea id="business-description" name="business_description" class="text-input textarea-input" 
+                                  rows="4" placeholder="Describe your business..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sharks Present</label>
+                        <div id="sharks-container" class="sharks-container">
+                            <!-- Sharks will be populated dynamically -->
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="button" id="predict-deal-btn" class="btn btn-primary">Predict Deal</button>
+                        <button type="button" id="predict-valuation-btn" class="btn btn-secondary">Estimate Valuation</button>
+                        <button type="button" id="analyze-sharks-btn" class="btn btn-secondary">Analyze Sharks</button>
+                        <button type="button" id="find-similar-btn" class="btn btn-secondary">Find Similar Companies</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Results Section -->
+            <section id="results-section" class="results-section" style="display: none;">
+                <h2>Predictions</h2>
+                <div id="results-content"></div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Built with ❤️ using Machine Learning | Global Shark Tank Intelligence Platform</p>
+        </footer>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
+
