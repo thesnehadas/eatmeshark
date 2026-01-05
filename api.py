@@ -32,7 +32,7 @@ def index():
 @main_bp.route('/static/<path:path>')
 def serve_static(path):
     """Serve static files."""
-    return send_from_directory('static', path)
+    return send_from_directory(app.static_folder, path)
 
 # Register blueprint
 app.register_blueprint(main_bp)
