@@ -26,7 +26,7 @@ server {
         proxy_read_timeout 60s;
     }
 
-    # Handle /eatmeshark without trailing slash
+    # Redirect /eatmeshark to /eatmeshark/
     location = /eatmeshark {
         return 301 /eatmeshark/;
     }

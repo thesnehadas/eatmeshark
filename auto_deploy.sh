@@ -90,8 +90,8 @@ server {
     server_name $DOMAIN www.$DOMAIN;
 
     # Serve the app at /eatmeshark
-    location /eatmeshark {
-        proxy_pass http://127.0.0.1:5000/eatmeshark;
+    location /eatmeshark/ {
+        proxy_pass http://127.0.0.1:5000/eatmeshark/;
         proxy_set_header Host \$host;
         proxy_set_header X-Real-IP \$remote_addr;
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
@@ -103,9 +103,14 @@ server {
         proxy_read_timeout 60s;
     }
 
+    # Redirect /eatmeshark to /eatmeshark/
+    location = /eatmeshark {
+        return 301 /eatmeshark/;
+    }
+
     # Static files
-    location /eatmeshark/static {
-        alias $APP_DIR/static;
+    location /eatmeshark/static/ {
+        alias $APP_DIR/static/;
         expires 30d;
         add_header Cache-Control "public, immutable";
     }
