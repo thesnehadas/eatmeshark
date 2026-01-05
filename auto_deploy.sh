@@ -74,6 +74,7 @@ User=www-data
 Group=www-data
 WorkingDirectory=$APP_DIR
 Environment="PATH=$APP_DIR/venv/bin"
+Environment="BASE_PATH=/eatmeshark"
 ExecStart=$APP_DIR/venv/bin/gunicorn --config $APP_DIR/gunicorn_config.py api:app
 Restart=always
 RestartSec=10
@@ -88,18 +89,21 @@ server {
     listen 80;
     server_name $DOMAIN www.$DOMAIN;
 
-    location / {
+    # Serve the app at /eatmeshark
+    location /eatmeshark {
         proxy_pass http://127.0.0.1:5000;
         proxy_set_header Host \$host;
         proxy_set_header X-Real-IP \$remote_addr;
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_set_header X-Script-Name /eatmeshark;
         proxy_connect_timeout 60s;
         proxy_send_timeout 60s;
         proxy_read_timeout 60s;
     }
 
-    location /static {
+    # Static files
+    location /eatmeshark/static {
         alias $APP_DIR/static;
         expires 30d;
         add_header Cache-Control "public, immutable";

@@ -1,6 +1,21 @@
 // Shark Tank Intelligence Platform - Frontend JavaScript
 
-const API_BASE_URL = 'http://localhost:5000/api';
+// Auto-detect API base URL based on current path
+function getApiBaseUrl() {
+    // Get the current path
+    const path = window.location.pathname;
+    
+    // Remove trailing slash and get base path
+    const basePath = path.replace(/\/$/, '');
+    
+    // If we're at /eatmeshark, use that as base, otherwise use root
+    if (basePath.includes('/eatmeshark')) {
+        return '/eatmeshark/api';
+    }
+    return '/api';
+}
+
+const API_BASE_URL = getApiBaseUrl();
 
 let currentCountry = '';
 let countryConfig = null;

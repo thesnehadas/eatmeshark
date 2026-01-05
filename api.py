@@ -14,19 +14,28 @@ from src.inference import predict_all, predict_deal, predict_valuation, predict_
 from src.config import get_available_countries, load_config
 from src.similarity_finder import find_similar_companies
 
+# Get base path from environment variable or use default
+BASE_PATH = os.environ.get('BASE_PATH', '/eatmeshark')
+
 app = Flask(__name__, static_folder='static', template_folder='templates')
 CORS(app)  # Enable CORS for frontend
 
+# Create a blueprint for the base path
+from flask import Blueprint
+main_bp = Blueprint('main', __name__, url_prefix=BASE_PATH)
 
-@app.route('/')
+@main_bp.route('/')
 def index():
     """Serve the main page."""
     return render_template('index.html')
 
-@app.route('/static/<path:path>')
+@main_bp.route('/static/<path:path>')
 def serve_static(path):
     """Serve static files."""
     return send_from_directory('static', path)
+
+# Register blueprint
+app.register_blueprint(main_bp)
 
 
 @app.route('/api/health', methods=['GET'])
@@ -35,7 +44,7 @@ def health_check():
     return jsonify({'status': 'healthy', 'message': 'Shark Tank Intelligence API is running'})
 
 
-@app.route('/api/countries', methods=['GET'])
+@main_bp.route('/api/countries', methods=['GET'])
 def get_countries():
     """Get list of available countries."""
     try:
@@ -51,7 +60,7 @@ def get_countries():
         }), 500
 
 
-@app.route('/api/countries/<country>/config', methods=['GET'])
+@main_bp.route('/api/countries/<country>/config', methods=['GET'])
 def get_country_config(country):
     """Get configuration for a specific country."""
     try:
@@ -80,7 +89,7 @@ def get_country_config(country):
         }), 500
 
 
-@app.route('/api/predict/deal', methods=['POST'])
+@main_bp.route('/api/predict/deal', methods=['POST'])
 def predict_deal_endpoint():
     """Predict deal probability."""
     try:
@@ -109,7 +118,7 @@ def predict_deal_endpoint():
         }), 500
 
 
-@app.route('/api/predict/valuation', methods=['POST'])
+@main_bp.route('/api/predict/valuation', methods=['POST'])
 def predict_valuation_endpoint():
     """Predict startup valuation."""
     try:
@@ -140,7 +149,7 @@ def predict_valuation_endpoint():
         }), 500
 
 
-@app.route('/api/predict/sharks', methods=['POST'])
+@main_bp.route('/api/predict/sharks', methods=['POST'])
 def predict_sharks_endpoint():
     """Predict shark investment probabilities."""
     try:
@@ -181,7 +190,7 @@ def predict_sharks_endpoint():
         }), 500
 
 
-@app.route('/api/predict/similar', methods=['POST'])
+@main_bp.route('/api/predict/similar', methods=['POST'])
 def find_similar_companies_endpoint():
     """Find similar companies."""
     try:
@@ -214,7 +223,7 @@ def find_similar_companies_endpoint():
         }), 500
 
 
-@app.route('/api/predict/all', methods=['POST'])
+@main_bp.route('/api/predict/all', methods=['POST'])
 def predict_all_endpoint():
     """Get all predictions at once."""
     try:
