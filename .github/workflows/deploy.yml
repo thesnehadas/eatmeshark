@@ -1,19 +1,18 @@
 name: Deploy to Hostinger VPS
 
+# Only run on manual trigger to avoid failures when secrets aren't set up
 on:
-  push:
-    branches:
-      - main
-      - master
-  workflow_dispatch:  # Allows manual triggering
+  workflow_dispatch:  # Manual trigger only
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    # Only run if secrets are configured
+    if: ${{ secrets.VPS_HOST != '' && secrets.VPS_USER != '' && secrets.VPS_SSH_KEY != '' }}
     
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     
     - name: Deploy to VPS
       uses: appleboy/ssh-action@v1.0.0
@@ -23,12 +22,15 @@ jobs:
         key: ${{ secrets.VPS_SSH_KEY }}
         port: ${{ secrets.VPS_PORT || 22 }}
         script: |
-          cd /var/www/shark-tank
+          cd /var/www/shark-tank || { echo "Directory not found, cloning repository..."; git clone https://github.com/thesnehadas/eatmeshark.git /var/www/shark-tank; cd /var/www/shark-tank; }
           
           # Pull latest code
           git pull origin main || git pull origin master
           
-          # Activate virtual environment
+          # Activate virtual environment (create if doesn't exist)
+          if [ ! -d "venv" ]; then
+            python3 -m venv venv
+          fi
           source venv/bin/activate
           
           # Install/update dependencies
@@ -39,9 +41,11 @@ jobs:
           chown -R www-data:www-data /var/www/shark-tank
           chmod -R 755 /var/www/shark-tank
           
-          # Restart service
-          systemctl restart shark-tank
-          
-          # Check status
-          systemctl status shark-tank --no-pager
+          # Restart service (if exists)
+          if systemctl is-active --quiet shark-tank; then
+            systemctl restart shark-tank
+            systemctl status shark-tank --no-pager
+          else
+            echo "Service not found. Run auto_deploy.sh first to set up the service."
+          fi
 
