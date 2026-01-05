@@ -34,10 +34,6 @@ def serve_static(path):
     """Serve static files."""
     return send_from_directory(app.static_folder, path)
 
-# Register blueprint
-app.register_blueprint(main_bp)
-
-
 @main_bp.route('/api/health', methods=['GET'])
 def health_check():
     """Health check endpoint."""
@@ -309,6 +305,9 @@ def predict_all_endpoint():
             'success': False,
             'error': str(e)
         }), 500
+
+# Register blueprint AFTER all routes are defined
+app.register_blueprint(main_bp)
 
 
 if __name__ == '__main__':
