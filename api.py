@@ -38,7 +38,7 @@ def serve_static(path):
 app.register_blueprint(main_bp)
 
 
-@app.route('/api/health', methods=['GET'])
+@main_bp.route('/api/health', methods=['GET'])
 def health_check():
     """Health check endpoint."""
     return jsonify({'status': 'healthy', 'message': 'Shark Tank Intelligence API is running'})
